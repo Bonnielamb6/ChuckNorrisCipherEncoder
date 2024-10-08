@@ -5,9 +5,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String op = "";
+        String answer = "";
         while (!op.equals("exit")) {
             System.out.println("Please input operation (encode/decode/exit):");
-            op = sc.nextLine().toLowerCase();
+            answer = sc.nextLine();
+            op = answer.toLowerCase();
 
             switch (op) {
                 case "encode":
@@ -17,10 +19,10 @@ public class Main {
                     decode();
                     break;
                 case "exit":
-                    System.out.println("Bye!");
+                    System.out.print("Bye!");
                     break;
                 default:
-                    System.out.println("There is no '" + op + "' operation");
+                    System.out.println("There is no '" + answer + "' operation\n");
                     break;
 
             }
@@ -52,7 +54,8 @@ public class Main {
             if (lastChar == resultBinary.charAt(i)) {
                 currentCounter++;
             } else {
-                if (lastChar == '0') {
+                if (lastChar == '0') {//101010101111010101101
+                                        //0 0 00 0 0 0
                     result.append("00 ");
                 } else {
                     result.append("0 ");
@@ -79,7 +82,7 @@ public class Main {
         }
         result.append(" ");
         System.out.println("Encoded string:");
-        System.out.println(result);
+        System.out.println(result + "\n");
 
     }
 
@@ -93,7 +96,7 @@ public class Main {
         ArrayList<String> individualBinaries = new ArrayList<>();
 
         if(verifyEncoded(encodedString,splitString)){
-            System.out.println("Encoded string is not valid");
+            System.out.println("Encoded string is not valid\n");
             return;
         }
 
@@ -111,7 +114,7 @@ public class Main {
 
         }
         if(validateSize(decodedString)){
-            System.out.println("Encoded string is not valid");
+            System.out.println("Encoded string is not valid\n");
             return;
         }
 
@@ -123,7 +126,7 @@ public class Main {
             char number = (char) Integer.parseInt(x, 2);
             System.out.print(number);
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
     private static boolean validateSize(StringBuilder decodedString) {
@@ -139,6 +142,11 @@ public class Main {
         }
         for (int i = 0; i < verify.length(); i++) {
             if (verify.charAt(i) != '0' && verify.charAt(i) != ' ') {
+                return true;
+            }
+        }
+        for(int i = 0;i< blocks.length;i = i+2){
+            if(blocks[i].length()>2 || blocks[i].isEmpty()){
                 return true;
             }
         }
