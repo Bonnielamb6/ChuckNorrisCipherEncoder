@@ -1,7 +1,20 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+/*
+* Single responsibility
+* better names
+* Constants
+* NOT void functions unless intended to modify the value
+* */
+
 
 public class Main {
+
+    private static final short BIT_SIZE = 7;
+    private static final short BINARY_BLOCK_SEPARATION = 2;
+    private static final short MAXIMUM_FIRST_BLOCK_SIZE = 2;
+    private static final short BINARY_BASE_CONVERSION = 2;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String op = "";
@@ -50,8 +63,8 @@ public class Main {
         int currentCounter = 1;
         StringBuilder result = new StringBuilder();
 
-        for (int i = 1; i < resultBinary.length(); i++) {
-            if (lastChar == resultBinary.charAt(i)) {
+        for (int currentBitPos = 1; currentBitPos < resultBinary.length(); currentBitPos++) {
+            if (lastChar == resultBinary.charAt(currentBitPos)) {
                 currentCounter++;
             } else {
                 if (lastChar == '0') {//101010101111010101101
@@ -61,11 +74,11 @@ public class Main {
                     result.append("0 ");
                 }
 
-                for (int j = 0; j < currentCounter; j++) {
+                for (int charReplication = 0; charReplication < currentCounter; charReplication++) {
                     result.append("0");
                 }
                 result.append(" ");
-                lastChar = resultBinary.charAt(i);
+                lastChar = resultBinary.charAt(currentBitPos);
                 currentCounter = 1;
             }
         }
@@ -77,7 +90,7 @@ public class Main {
             result.append("0 ");
         }
 
-        for (int k = 0; k < currentCounter; k++) {
+        for (int charReplication = 0; charReplication < currentCounter; charReplication++) {
             result.append("0");
         }
         result.append(" ");
@@ -100,15 +113,15 @@ public class Main {
             return;
         }
 
-        for (int i = 0; i < splitString.length; i = i + 2) {
+        for (int currentBitPos = 0; currentBitPos < splitString.length; currentBitPos = currentBitPos + BINARY_BLOCK_SEPARATION) {
             char currentChar;
-            if (splitString[i].equals("0")) {
+            if (splitString[currentBitPos].equals("0")) {
                 currentChar = '1';
             } else {
                 currentChar = '0';
             }
 
-            for (int j = 0; j < splitString[i + 1].length(); j++) {
+            for (int charReplication = 0; charReplication < splitString[currentBitPos + 1].length(); charReplication++) {
                 decodedString.append(currentChar);
             }
 
@@ -118,39 +131,43 @@ public class Main {
             return;
         }
 
-        for (int i = 0; i < decodedString.length(); i = i + 7) {
-            individualBinaries.add(decodedString.substring(i, i + 7));
+        for (int currentBitPos = 0; currentBitPos < decodedString.length(); currentBitPos = currentBitPos + BIT_SIZE) {
+            individualBinaries.add(decodedString.substring(currentBitPos, currentBitPos + BIT_SIZE));
         }
         System.out.println("Decoded string:");
-        for (String x : individualBinaries) {
-            char number = (char) Integer.parseInt(x, 2);
+        for (String binaryString : individualBinaries) {
+            char number = (char) Integer.parseInt(binaryString, BINARY_BASE_CONVERSION);
             System.out.print(number);
         }
         System.out.println("\n");
     }
 
     private static boolean validateSize(StringBuilder decodedString) {
-        return decodedString.length() % 7 != 0;
+        return decodedString.length() % BIT_SIZE != 0;
     }
 
-    public static boolean verifyEncoded(String verify,String[] blocks) {
+    private static boolean verifyEncoded(String verify,String[] blocks) {
         if((!blocks[0].equals("0")) && (!blocks[0].equals("00"))){
             return true;
         }
-        if(blocks.length % 2 !=0){
+        if(!isPairSize(blocks.length)){
             return true;
         }
-        for (int i = 0; i < verify.length(); i++) {
-            if (verify.charAt(i) != '0' && verify.charAt(i) != ' ') {
+        for (int currentBitPos = 0; currentBitPos < verify.length(); currentBitPos++) {
+            if (verify.charAt(currentBitPos) != '0' && verify.charAt(currentBitPos) != ' ') {
                 return true;
             }
         }
-        for(int i = 0;i< blocks.length;i = i+2){
-            if(blocks[i].length()>2 || blocks[i].isEmpty()){
+        for(int currentBinaryBlock = 0;currentBinaryBlock< blocks.length;currentBinaryBlock = currentBinaryBlock+BINARY_BLOCK_SEPARATION){
+            if(blocks[currentBinaryBlock].length()>MAXIMUM_FIRST_BLOCK_SIZE || blocks[currentBinaryBlock].isEmpty()){
                 return true;
             }
         }
         return false;
+    }
+
+    private static boolean isPairSize(int size){
+        return size % 2 == 0;
     }
 }
 
