@@ -26,13 +26,10 @@ public class Main {
 
             switch (op) {
                 case "encode":
-                    System.out.println("Input string:");
-                    System.out.println("Encoded string:\n"+encode(sc.nextLine())+"\n");
+                    encode();
                     break;
                 case "decode":
-                    System.out.println("Input encoded string:");
-                    String resultDecode = decode(sc.nextLine());
-                    System.out.println(resultDecode.isBlank() ? "Encoded string is not valid\n" : "Decoded string:\n" + resultDecode + "\n");
+                    decode();
                     break;
                 case "exit":
                     System.out.print("Bye!");
@@ -40,15 +37,24 @@ public class Main {
                 default:
                     System.out.println("There is no '" + answer + "' operation\n");
                     break;
+
             }
+
         }
+
+
     }
 
-    public static String encode(String stringToEncode) {
+    public static void encode() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Input string:");
+        String message = sc.nextLine();
+
+
         StringBuilder resultBinary = new StringBuilder();
 
-        for (Character charToEncode : stringToEncode.toCharArray()) {
-            String number = Integer.toBinaryString(charToEncode);
+        for (Character x : message.toCharArray()) {
+            String number = Integer.toBinaryString(x);
             number = "0000000".substring(number.length()) + number;
             resultBinary.append(number);
         }
@@ -88,19 +94,23 @@ public class Main {
             result.append("0");
         }
         result.append(" ");
+        System.out.println("Encoded string:");
+        System.out.println(result + "\n");
 
-        return result.toString();
     }
 
-    public static String decode(String binaryToDecode) {
+    public static void decode() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Input encoded string:");
+        String encodedString = sc.nextLine();
 
-
-        String[] splitString = binaryToDecode.split(" ");
+        String[] splitString = encodedString.split(" ");
         StringBuilder decodedString = new StringBuilder();
         ArrayList<String> individualBinaries = new ArrayList<>();
 
-        if(verifyEncoded(binaryToDecode,splitString)){
-            return "";
+        if(verifyEncoded(encodedString,splitString)){
+            System.out.println("Encoded string is not valid\n");
+            return;
         }
 
         for (int currentBitPos = 0; currentBitPos < splitString.length; currentBitPos = currentBitPos + BINARY_BLOCK_SEPARATION) {
@@ -117,21 +127,19 @@ public class Main {
 
         }
         if(validateSize(decodedString)){
-            return "";
+            System.out.println("Encoded string is not valid\n");
+            return;
         }
 
         for (int currentBitPos = 0; currentBitPos < decodedString.length(); currentBitPos = currentBitPos + BIT_SIZE) {
             individualBinaries.add(decodedString.substring(currentBitPos, currentBitPos + BIT_SIZE));
         }
-
-        StringBuilder returnString = new StringBuilder();
+        System.out.println("Decoded string:");
         for (String binaryString : individualBinaries) {
             char number = (char) Integer.parseInt(binaryString, BINARY_BASE_CONVERSION);
-            returnString.append(number);
+            System.out.print(number);
         }
-
-
-        return returnString.toString();
+        System.out.println("\n");
     }
 
     private static boolean validateSize(StringBuilder decodedString) {
@@ -161,10 +169,5 @@ public class Main {
     private static boolean isPairSize(int size){
         return size % 2 == 0;
     }
-
-    private static void printResult(String message,String resultString){
-
-    }
-
 }
 
