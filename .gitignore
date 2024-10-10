@@ -1,10 +1,11 @@
 ### IntelliJ IDEA ###
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-/src/TryToUnderstand.java
-/src/EncryptsOnlyZeros.java
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+/src/main/java/org/project/chucknorris/TryToUnderstand.java
+/src/main/java/org/project/chucknorris/EncryptsOnlyZeros.java
 ChuckNorrisCipherEncoder.iml
+.idea/
 ### Eclipse ###
 .apt_generated
 .classpath
