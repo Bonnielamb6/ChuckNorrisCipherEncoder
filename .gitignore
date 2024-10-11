@@ -2,8 +2,8 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-/src/main/TryToUnderstand.java
-/src/main/EncryptsOnlyZeros.java
+/src/main/java/org/project/chucknorris/TryToUnderstand.java
+/src/main/java/org/project/chucknorris/EncryptsOnlyZeros.java
 ChuckNorrisCipherEncoder.iml
 ### Eclipse ###
 .apt_generated
