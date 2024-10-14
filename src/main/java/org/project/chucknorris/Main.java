@@ -1,6 +1,4 @@
 package org.project.chucknorris;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 /*
 * Single responsibility
