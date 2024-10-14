@@ -8,17 +8,13 @@ public final class Decoder {
 
     public static String decode(String stringToDecode) {
         String[] splitString = stringToDecode.split(" ");
-
-        if (verifyEncoded(stringToDecode, splitString)) {
+        if (isEncoded(stringToDecode, splitString)) {
             return "";
         }
-
         String decodedString = decodeBinaryBlocks(splitString);
-
         if (validateSize(decodedString)) {
             return "";
         }
-
         return convertToString(decodedString);
     }
 
@@ -47,7 +43,7 @@ public final class Decoder {
         return decodedString.length() % BIT_SIZE != 0;
     }
 
-    private static boolean verifyEncoded(String verify, String[] blocks) {
+    private static boolean isEncoded(String verify, String[] blocks) {
         if ((!blocks[0].equals("0")) && (!blocks[0].equals("00"))) {
             return true;
         }

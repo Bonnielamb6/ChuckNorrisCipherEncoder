@@ -4,14 +4,12 @@ public final class Encoder {
 
 
     public static String encode(String stringToEncode) {
-        StringBuilder resultString = new StringBuilder();
         String binaryString = stringToBinary(stringToEncode);
-        encodeBinaryString(binaryString, resultString);
-
-        return resultString.toString();
+        return encodeBinaryString(binaryString);
     }
 
-    private static void encodeBinaryString(String binaryString, StringBuilder resultString) {
+    private static String encodeBinaryString(String binaryString) {
+        StringBuilder encodedString = new StringBuilder();
         char lastChar = binaryString.charAt(0);
         int currentCounter = 1;
 
@@ -19,24 +17,27 @@ public final class Encoder {
             if (lastChar == binaryString.charAt(currentBitPos)) {
                 currentCounter++;
             } else {
-                appendEncodedSegment(resultString, lastChar, currentCounter);
+                encodedString.append(appendEncodedSegment(lastChar, currentCounter));
                 lastChar = binaryString.charAt(currentBitPos);
                 currentCounter = 1;
             }
         }
 
-        appendEncodedSegment(resultString, lastChar, currentCounter);
+        encodedString.append(appendEncodedSegment( lastChar, currentCounter));
+        return encodedString.toString();
     }
 
-    private static void appendEncodedSegment(StringBuilder resultString, char character, int count) {
+    private static String appendEncodedSegment( char character, int count) {
+        StringBuilder stringToAppend = new StringBuilder();
         if (character == '0') {
-            resultString.append("00 ");
+            stringToAppend.append("00 ");
         } else {
-            resultString.append("0 ");
+            stringToAppend.append("0 ");
         }
 
-        resultString.append("0".repeat(Math.max(0, count)));
-        resultString.append(" ");
+        stringToAppend.append("0".repeat(Math.max(0, count)));
+        stringToAppend.append(" ");
+        return stringToAppend.toString();
     }
 
     private static String stringToBinary(String stringToChange) {
