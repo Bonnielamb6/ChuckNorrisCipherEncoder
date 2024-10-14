@@ -28,9 +28,7 @@ public final class Decoder {
             char currentChar = splitString[currentBitPos].equals("0") ? '1' : '0';
             int count = splitString[currentBitPos + 1].length();
 
-            for (int i = 0; i < count; i++) {
-                resultString.append(currentChar);
-            }
+            resultString.append(String.valueOf(currentChar).repeat(count));
         }
         return resultString.toString();
     }

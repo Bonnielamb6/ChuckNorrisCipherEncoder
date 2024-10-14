@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String op = "";
-        String answer = "";
+        String answer;
         while (!op.equals("exit")) {
             System.out.println("Please input operation (encode/decode/exit):");
             answer = sc.nextLine();

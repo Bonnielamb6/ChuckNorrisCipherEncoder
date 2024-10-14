@@ -35,9 +35,7 @@ public final class Encoder {
             resultString.append("0 ");
         }
 
-        for (int i = 0; i < count; i++) {
-            resultString.append("0");
-        }
+        resultString.append("0".repeat(Math.max(0, count)));
         resultString.append(" ");
     }
 
