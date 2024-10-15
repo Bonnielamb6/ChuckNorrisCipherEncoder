@@ -4,6 +4,9 @@ public final class Encoder {
 
 
     public static String encode(String stringToEncode) {
+        if(stringToEncode.isEmpty()){
+            return "";
+        }
         String binaryString = stringToBinary(stringToEncode);
         return encodeBinaryString(binaryString);
     }
@@ -24,7 +27,7 @@ public final class Encoder {
         }
 
         encodedString.append(appendEncodedSegment( lastChar, currentCounter));
-        return encodedString.toString();
+        return encodedString.toString().trim();
     }
 
     private static String appendEncodedSegment( char character, int count) {
