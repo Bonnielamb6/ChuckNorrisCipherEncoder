@@ -45,4 +45,12 @@ class DecoderTest {
         String actual = Decoder.decode(input);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void testDecodeNull() {
+        String input = null;
+        String expected = "";
+        String actual = Decoder.decode(input);
+        assertEquals(expected, actual);
+    }
 }

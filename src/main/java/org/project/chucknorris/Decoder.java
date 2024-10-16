@@ -7,6 +7,9 @@ public final class Decoder {
     private static final short BINARY_BASE_CONVERSION = 2;
 
     public static String decode(String stringToDecode) {
+        if(stringToDecode == null) {
+            return "";
+        }
         String[] splitString = stringToDecode.split(" ");
         if (isEncoded(stringToDecode, splitString)) {
             return "";

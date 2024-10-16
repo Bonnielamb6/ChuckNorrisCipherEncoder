@@ -4,7 +4,7 @@ public final class Encoder {
 
 
     public static String encode(String stringToEncode) {
-        if(stringToEncode.isEmpty()){
+        if(stringToEncode == null || stringToEncode.isEmpty()) {
             return "";
         }
         String binaryString = stringToBinary(stringToEncode);

@@ -45,4 +45,12 @@ class EncoderTest {
         String actual = Encoder.encode(input);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void testEncodeNull() {
+        String input = null;
+        String expected = "";
+        String actual = Encoder.encode(input);
+        assertEquals(expected, actual);
+    }
 }
