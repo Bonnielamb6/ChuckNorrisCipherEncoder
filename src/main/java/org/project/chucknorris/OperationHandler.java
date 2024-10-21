@@ -1,11 +1,9 @@
 package org.project.chucknorris;
 
-import java.util.Scanner;
-
 public class OperationHandler {
-    private final Scanner scanner;
+    private final ScannerWrapper scanner;
 
-    public OperationHandler(Scanner scanner) {
+    public OperationHandler(ScannerWrapper scanner) {
         this.scanner = scanner;
     }
 
@@ -13,7 +11,7 @@ public class OperationHandler {
         String operation = "";
         while (!operation.equals("exit")) {
             System.out.println("Please input operation (encode/decode/exit):");
-            operation = scanner.nextLine().toLowerCase();
+            operation = scanner.getUserInput().toLowerCase();
 
             switch (operation) {
                 case "encode":
@@ -23,7 +21,7 @@ public class OperationHandler {
                     handleDecode();
                     break;
                 case "exit":
-                    System.out.print("Bye!");
+                    System.out.println("Bye!");
                     break;
                 default:
                     System.out.println("There is no '" + operation + "' operation\n");
@@ -34,16 +32,17 @@ public class OperationHandler {
 
     private void handleEncode() {
         System.out.println("Input string:");
-        String input = scanner.nextLine();
+        String input = scanner.getUserInput();
         String encoded = Encoder.encode(input);
         System.out.println("Encoded string:\n" + encoded + "\n");
     }
 
     private void handleDecode() {
         System.out.println("Input encoded string:");
-        String input = scanner.nextLine();
+        String input = scanner.getUserInput();
         String decoded = Decoder.decode(input);
-        System.out.println(decoded.isBlank() ? "Encoded string is not valid\n" : "Decoded string:\n" + decoded + "\n");
+        System.out.println(decoded == null || decoded.isBlank()
+                ? "Encoded string is not valid\n"
+                : "Decoded string:\n" + decoded + "\n");
     }
-
 }
